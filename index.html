@@ -60,7 +60,7 @@ h1{ margin:0; font-size:22px; letter-spacing:1px; color:#023e36; text-transform:
   50%{background:linear-gradient(135deg, #f0f9f9 0%, #e0f7fa 100%);}
   100%{background:linear-gradient(135deg, #ffffff 0%, #f6f6f6 100%);}
 }
-.card:hover{ transform:translateY(-8px) scale(1.03); box-shadow:0 18px 48px rgba(0,0,0,0.15);}
+.card:hover{ transform:translateY(-8px) scale(1.03); box-shadow:0 18px 48px rgba(0,0,0,0.15); }
 .card .top{ display:flex; gap:12px; align-items:center; }
 .symbol{
   width:56px;height:56px;border-radius:10px;
@@ -121,7 +121,7 @@ footer{ margin-top:20px; text-align:center; color:var(--muted); font-size:13px;}
   </div>
 
   <div id="results" class="results" aria-live="polite"></div>
-  <footer>Data diambil dari sheet <strong>Daftar Link</strong>. Pastikan sheet sudah di-publish sebagai CSV.</footer>
+  <footer>@pacegondes <strong>2025</strong>. pacegondes.blogspot.com.</footer>
 </div>
 
 <script>
@@ -166,15 +166,21 @@ function detectIcon(name,csvIcon){
   return pool[Math.floor(Math.random()*pool.length)];
 }
 
-function highlight(text,q){if(!q) return escapeHtml(text); const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); const re=new RegExp(esc,'ig'); return escapeHtml(text).replace(re,m=>`<mark class="hi">${m}</mark>`);}
+function highlight(text,q){
+  if(!q) return escapeHtml(text);
+  const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const re=new RegExp(esc,'ig');
+  return escapeHtml(text).replace(re,m=>`<mark class="hi">${m}</mark>`);
+}
+
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
 function escapeAttr(s){ return s?s.replace(/"/g,'&quot;'):''; }
 
 function render(items,q=""){
   const cont=document.getElementById('results');
   cont.innerHTML="";
-  if(!items.length){cont.innerHTML='<div class="empty">Tidak ada soal yang cocok.</div>'; return;}
-  items.forEach((it,idx)=>{
+  if(!items.length){ cont.innerHTML='<div class="empty">Tidak ada soal yang cocok.</div>'; return; }
+  items.forEach(it=>{
     const icon=detectIcon(it.nama,it.ikon);
     const card=document.createElement('article');
     card.className='card';
@@ -193,7 +199,10 @@ function render(items,q=""){
     cont.appendChild(card);
     card.querySelector('.copy').addEventListener('click',function(){
       const url=this.getAttribute('data-link');
-      navigator.clipboard?.writeText(url).then(()=>{ this.innerText='Tersalin ✓'; setTimeout(()=>this.innerText='Salin Link',1600); }).catch(()=>{window.prompt('Salin link manual:',url);});
+      navigator.clipboard?.writeText(url).then(()=>{ 
+        this.innerText='Tersalin ✓'; 
+        setTimeout(()=>this.innerText='Salin Link',1600); 
+      }).catch(()=>{ window.prompt('Salin link manual:',url); });
     });
   });
 }
@@ -221,4 +230,3 @@ load();
 </script>
 </body>
 </html>
-
