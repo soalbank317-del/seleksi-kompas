@@ -1,313 +1,188 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KOMPAS — Daftar Soal</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg1: #e0f7fa;
-    --bg2: #ffffff;
-    --accent: #00897b;
-    --accent-dark: #00695c;
-    --card: rgba(255,255,255,0.95);
-    --muted:#666;
-  }
-  /* Layout */
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    background: linear-gradient(180deg,var(--bg1),var(--bg2));
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:28px;
-  }
-  .wrap{
-    width:100%;
-    max-width:1100px;
-    background:var(--card);
-    border-radius:18px;
-    padding:28px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.09);
-    position:relative;
-    overflow:hidden;
-  }
+:root{
+  --bg1:#e0f7fa; --bg2:#ffffff;
+  --accent:#00897b; --accent-dark:#00695c;
+  --card:rgba(255,255,255,0.95); --muted:#666;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background: linear-gradient(180deg,var(--bg1),var(--bg2));
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px;
+}
+.wrap{
+  width:100%; max-width:1100px;
+  background:var(--card); border-radius:18px; padding:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.09); position:relative; overflow:hidden;
+}
+.head{ display:flex; gap:16px; align-items:center; justify-content:center; flex-direction:column;}
+.brand{ display:flex; gap:16px; align-items:center; }
+.logo{
+  width:72px; height:72px; border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+  display:flex; align-items:center; justify-content:center; color:white; font-size:32px;
+  box-shadow:0 6px 18px rgba(0,137,123,0.18);
+}
+h1{ margin:0; font-size:22px; letter-spacing:1px; color:#023e36; text-transform:uppercase;}
+.sub, .location{ color:var(--muted); margin-top:4px; font-size:14px; text-align:center;}
 
-  /* Header */
-  .head{
-    display:flex;
-    gap:16px;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-  }
-  .brand{
-    display:flex;
-    gap:16px;
-    align-items:center;
-  }
-  .logo{
-    width:72px;
-    height:72px;
-    border-radius:14px;
-    background:linear-gradient(135deg,var(--accent),var(--accent-dark));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:32px;
-    box-shadow: 0 6px 18px rgba(0,137,123,0.18);
-  }
-  h1{
-    margin:0;
-    font-size:22px;
-    letter-spacing:1px;
-    color:#023e36;
-    text-transform:uppercase;
-  }
-  .sub{color:var(--muted); margin-top:6px; font-size:14px; text-align:center;}
-  .location{color:var(--muted);font-size:13px;margin-top:4px;text-align:center}
+.search{ margin:18px auto; max-width:780px; }
+.search input{
+  width:100%; padding:14px 18px; border-radius:999px; border:2px solid var(--accent);
+  outline:none; font-size:15px; box-shadow:0 6px 18px rgba(0,137,123,0.08); transition:0.25s;
+}
+.search input:focus{ border-color:var(--accent-dark); box-shadow:0 8px 24px rgba(0,137,123,0.2); }
 
-  /* Search */
-  .controls{
-    display:flex;
-    gap:12px;
-    margin:18px auto 0;
-    width:100%;
-    max-width:780px;
-    align-items:center;
-  }
-  .search{
-    flex:1;
-    position:relative;
-  }
-  .search input{
-    width:100%;
-    padding:14px 18px;
-    border-radius:999px;
-    border:2px solid var(--accent);
-    outline:none;
-    font-size:15px;
-    box-shadow:0 6px 18px rgba(0,137,123,0.08);
-  }
-  .filters{
-    display:flex;
-    gap:8px;
-  }
-  .filters button{
-    border:0;
-    background:#fff;
-    padding:10px 12px;
-    border-radius:10px;
-    box-shadow:0 6px 14px rgba(0,0,0,0.05);
-    cursor:pointer;
-    font-weight:600;
-  }
+.results{
+  margin-top:20px; display:grid; grid-template-columns:1fr; gap:14px;
+}
+@media(min-width:700px){ .results{ grid-template-columns:repeat(2,1fr);} }
+@media(min-width:1000px){ .results{ grid-template-columns:repeat(3,1fr);} }
 
-  /* Grid */
-  .results{
-    margin-top:20px;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:14px;
-  }
-  @media(min-width:700px){ .results{ grid-template-columns:repeat(2,1fr);} }
-  @media(min-width:1000px){ .results{ grid-template-columns:repeat(3,1fr);} }
+.card{
+  position:relative;
+  border-radius:12px; padding:16px;
+  overflow:hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 3s ease;
+  background: linear-gradient(135deg, #ffffff 0%, #f6f6f6 100%);
+  box-shadow:0 8px 22px rgba(0,0,0,0.06);
+  animation: bgAnim 6s ease-in-out infinite alternate;
+}
+@keyframes bgAnim{
+  0%{background:linear-gradient(135deg, #ffffff 0%, #f6f6f6 100%);}
+  50%{background:linear-gradient(135deg, #f0f9f9 0%, #e0f7fa 100%);}
+  100%{background:linear-gradient(135deg, #ffffff 0%, #f6f6f6 100%);}
+}
+.card:hover{ transform:translateY(-8px) scale(1.03); box-shadow:0 18px 48px rgba(0,0,0,0.15);}
+.card .top{ display:flex; gap:12px; align-items:center; }
+.symbol{
+  width:56px;height:56px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px; background:linear-gradient(135deg,#fff,#f6f6f6);
+  box-shadow:inset 0 -10px 30px rgba(0,0,0,0.02);
+  transition: transform 0.5s ease;
+  animation: rotateIcon 12s linear infinite;
+}
+.card:hover .symbol{ transform:translateY(-6px) scale(1.2) rotate(-10deg); }
 
-  .card{
-    position:relative;
-    background:linear-gradient(180deg,rgba(255,255,255,0.95),#fff);
-    border-radius:12px;
-    padding:16px;
-    box-shadow:0 8px 22px rgba(0,0,0,0.06);
-    overflow:hidden;
-    transition:transform .18s,box-shadow .18s;
-  }
-  .card:hover{ transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,0.12);}
+@keyframes rotateIcon{
+  0%{ transform:rotate(0deg); }
+  100%{ transform:rotate(360deg); }
+}
 
-  .card .top{
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-  .symbol{
-    width:56px;height:56px;border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:26px;
-    background:linear-gradient(135deg,#fff,#f6f6f6);
-    box-shadow:inset 0 -10px 30px rgba(0,0,0,0.02);
-  }
-  .meta{
-    flex:1;
-  }
-  .mapel{ font-weight:700; color:#023e36; font-size:16px; margin-bottom:4px;}
-  .size{ color:var(--muted); font-size:13px; }
+.meta{ flex:1; }
+.mapel{ font-weight:700; color:#023e36; font-size:16px; margin-bottom:4px; }
+.card .actions{ margin-top:12px; display:flex; gap:8px; align-items:center; }
+.btn{
+  padding:8px 12px; border-radius:10px; border:0;
+  cursor:pointer; font-weight:700; font-size:13px;
+  text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  transition:0.2s;
+}
+.btn.open{ background:var(--accent); color:white; }
+.btn.open:hover{ background:var(--accent-dark); }
+.btn.copy{ background:#f0f0f0; color:#333; }
+.btn.copy:hover{ background:#ddd; }
 
-  .card .actions{
-    margin-top:12px;
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
-  .btn{
-    padding:8px 12px;
-    border-radius:10px;
-    border:0;
-    cursor:pointer;
-    font-weight:700;
-    font-size:13px;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
-  .btn.open{ background:var(--accent); color:white; }
-  .btn.copy{ background:#f0f0f0; color:#333; }
-
-  .empty{ text-align:center;color:var(--muted); padding:28px 0; font-size:15px; }
-
-  /* small ornament */
-  .orn{
-    position:absolute;
-    right:-80px;
-    top:-60px;
-    width:260px;height:260px;
-    background:radial-gradient(circle at 30% 30%, rgba(0,137,123,0.08), transparent 30%),
-               radial-gradient(circle at 70% 70%, rgba(3,169,244,0.05), transparent 25%);
-    transform:rotate(15deg);
-    pointer-events:none;
-  }
-
-  mark.hi{ background:#fff59d; padding:0 .15em; border-radius:4px; }
-  footer{ margin-top:20px; text-align:center; color:var(--muted); font-size:13px;}
+.empty{ text-align:center;color:var(--muted); padding:28px 0; font-size:15px; }
+mark.hi{ background:#fff59d; padding:0 .15em; border-radius:4px; }
+footer{ margin-top:20px; text-align:center; color:var(--muted); font-size:13px;}
+.orn{
+  position:absolute; right:-80px; top:-60px; width:260px;height:260px;
+  background:radial-gradient(circle at 30% 30%, rgba(0,137,123,0.08), transparent 30%),
+             radial-gradient(circle at 70% 70%, rgba(3,169,244,0.05), transparent 25%);
+  transform:rotate(15deg); pointer-events:none;
+}
 </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <div class="orn" aria-hidden="true"></div>
-
-    <div class="head">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">K</div>
-        <div>
-          <h1>KOMPAS</h1>
-          <div class="sub">Kompetisi Mata Pelajaran MTs Amtsilati</div>
-          <div class="location">Jl. Kenanga Dk. Sidorejo Ds. Bangsri Jepara 54321</div>
-        </div>
+<div class="wrap" role="main">
+  <div class="orn" aria-hidden="true"></div>
+  <div class="head">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">K</div>
+      <div>
+        <h1>KOMPAS</h1>
+        <div class="sub">Kompetisi Mata Pelajaran MTs Amtsilati</div>
+        <div class="location">Jl. Kenanga Dk. Sidorejo Ds. Bangsri Jepara 54321</div>
       </div>
     </div>
-
-    <div class="controls" style="justify-content:center;">
-      <div class="search">
-        <input id="q" placeholder="Ketik nama mapel (contoh: matematika, ipa, bahasa arab...)">
-      </div>
-      <div class="filters" aria-hidden="true">
-        <button id="showAll">Semua</button>
-        <button id="showTheory">Teori</button>
-        <button id="showPractice">Praktik</button>
-      </div>
-    </div>
-
-    <div id="results" class="results" aria-live="polite"></div>
-
-    <footer>Data diambil dari sheet <strong>Daftar Link</strong>. Pastikan sheet sudah di-publish sebagai CSV.</footer>
   </div>
 
+  <div class="search">
+    <input id="q" placeholder="Ketik nama mapel (contoh: matematika, ipa, bahasa arab...)">
+  </div>
+
+  <div id="results" class="results" aria-live="polite"></div>
+  <footer>Data diambil dari sheet <strong>Daftar Link</strong>. Pastikan sheet sudah di-publish sebagai CSV.</footer>
+</div>
+
 <script>
-/*
-  Cara pakai:
-  1. Publish sheet "Daftar Link" sebagai CSV (File → Publish to web → pilih sheet → CSV).
-  2. Ganti CSV_URL di bawah dengan URL CSV publik.
-  3. Upload file ini ke GitHub Pages / hostingmu.
-*/
-
-/* ========== PENTING: ganti URL CSV di sini ========== */
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/YOUR_PUBLISHED_CSV_URL/pub?output=csv";
-/* =================================================== */
-
 let all = [];
 
-/* Utility: parse CSV robust (handles commas in quotes) */
 function parseCSV(text) {
   const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
-  if(rows.length === 0) return [];
-  // split header
-  const header = rows.shift().split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(h => h.trim().toLowerCase());
+  if(!rows.length) return [];
+  const header = rows.shift().split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(h=>h.trim().toLowerCase());
   const iIcon = header.indexOf("ikon");
   const iNama = header.indexOf("nama file");
-  const iSize = header.indexOf("ukuran");
   const iLink = header.indexOf("link file");
   return rows.map(line => {
-    const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g,'').trim());
-    return {
-      ikon: (iIcon>-1 ? cols[iIcon] : null) || "",
-      nama: cols[iNama] || cols[0] || "Untitled",
-      ukuran: cols[iSize] || "",
-      link: cols[iLink] || cols[cols.length-1] || "#"
-    };
+    const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c=>c.replace(/^"|"$/g,'').trim());
+    return { ikon:(iIcon>-1 ? cols[iIcon]:"")||"", nama:cols[iNama]||cols[0]||"Untitled", link:cols[iLink]||cols[cols.length-1]||"#" };
   });
 }
 
-/* Map nama file -> emoji/icon (fallback ke kolom ikon atau random) */
-const MAPEL_ICONS = [
+const MAPEL_ICONS=[
   {k:['matematika','mtk','math'], icon:'➗'},
   {k:['ipa','sains','ilmiah','science'], icon:'🔬'},
   {k:['ips','social','sejarah'], icon:'🌍'},
   {k:['bahasa indonesia','bindo','indonesia'], icon:'📝'},
-  {k:['bahasa inggris','bing','english'], icon:'📘'},
+  {k:['bahasa inggris','bing','english'], icon:'🇬🇧'},
   {k:['al-qur','qur','alqur','alquran','quran'], icon:'📖'},
   {k:['fikih','fiqih','fikih'], icon:'📜'},
   {k:['akidah','akhlak','aqidah'], icon:'🕌'},
-  {k:['arab','b.arab','bahasa arab'], icon:'📚'},
+  {k:['arab','b.arab','bahasa arab'], icon:'👳‍♂️'},
   {k:['pjok','penjas','penjaskes'], icon:'🏃'},
-  {k:['seni','kesenian'], icon:'🎨'},
-  {k:['praktek','praktik','lab'], icon:'🔧'}
+  {k:['seni','kesenian','gamelan'], icon:'🥁🎶'},
+  {k:['praktek','praktik','lab'], icon:'🔧'},
+  {k:['bahasa jawa','b.jawa'], icon:'🧑‍🎓🏯'},
+  {k:['ke-nu','nu','kenuan'], icon:'🌿🕌'}
 ];
 
-function detectIcon(name, csvIcon){
+function detectIcon(name,csvIcon){
   if(csvIcon && csvIcon.trim()) return csvIcon.trim();
-  const lower = name.toLowerCase();
-  for(const m of MAPEL_ICONS){
-    for(const keyword of m.k){
-      if(lower.includes(keyword)) return m.icon;
-    }
-  }
-  // fallback random educational icons
-  const pool = ['🏆','🎯','📚','✍️','🎓','🔖','📌','🧠','🔎','⭐'];
+  const lower=name.toLowerCase();
+  for(const m of MAPEL_ICONS) for(const keyword of m.k) if(lower.includes(keyword)) return m.icon;
+  const pool=['🏆','🎯','📚','✍️','🎓','🔖','📌','🧠','🔎','⭐'];
   return pool[Math.floor(Math.random()*pool.length)];
 }
 
-/* highlight query text */
-function highlight(text,q){
-  if(!q) return escapeHtml(text);
-  const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  const re = new RegExp(esc,'ig');
-  return escapeHtml(text).replace(re, m => `<mark class="hi">${m}</mark>`);
-}
+function highlight(text,q){if(!q) return escapeHtml(text); const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); const re=new RegExp(esc,'ig'); return escapeHtml(text).replace(re,m=>`<mark class="hi">${m}</mark>`);}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+function escapeAttr(s){ return s?s.replace(/"/g,'&quot;'):''; }
 
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
-
-function render(items, q=""){
-  const cont = document.getElementById('results');
-  cont.innerHTML = "";
-  if(!items.length){
-    cont.innerHTML = '<div class="empty">Tidak ada soal yang cocok.</div>';
-    return;
-  }
-  items.forEach((it, idx) => {
-    const icon = detectIcon(it.nama, it.ikon);
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.innerHTML = `
+function render(items,q=""){
+  const cont=document.getElementById('results');
+  cont.innerHTML="";
+  if(!items.length){cont.innerHTML='<div class="empty">Tidak ada soal yang cocok.</div>'; return;}
+  items.forEach((it,idx)=>{
+    const icon=detectIcon(it.nama,it.ikon);
+    const card=document.createElement('article');
+    card.className='card';
+    card.innerHTML=`
       <div class="top">
         <div class="symbol" aria-hidden="true">${icon}</div>
         <div class="meta">
-          <div class="mapel">${highlight(it.nama, q)}</div>
-          <div class="size">${escapeHtml(it.ukuran || '')}</div>
+          <div class="mapel">${highlight(it.nama,q)}</div>
         </div>
       </div>
       <div class="actions">
@@ -316,60 +191,32 @@ function render(items, q=""){
       </div>
     `;
     cont.appendChild(card);
-    // animation (stagger)
-    setTimeout(()=>card.style.transform = 'translateY(0)', 40 + idx*40);
-
-    // copy handler
-    card.querySelector('.copy').addEventListener('click', function(){
-      const url = this.getAttribute('data-link');
-      navigator.clipboard?.writeText(url).then(()=> {
-        this.innerText = 'Tersalin ✓';
-        setTimeout(()=> this.innerText = 'Salin Link', 1600);
-      }).catch(()=> {
-        window.prompt('Salin link manual:', url);
-      });
+    card.querySelector('.copy').addEventListener('click',function(){
+      const url=this.getAttribute('data-link');
+      navigator.clipboard?.writeText(url).then(()=>{ this.innerText='Tersalin ✓'; setTimeout(()=>this.innerText='Salin Link',1600); }).catch(()=>{window.prompt('Salin link manual:',url);});
     });
   });
 }
 
-/* Helper to safely put into href/data attr */
-function escapeAttr(s){ return s ? s.replace(/"/g, '&quot;') : ''; }
-
-/* Fetch CSV and init */
 async function load(){
   try{
-    const res = await fetch(CSV_URL);
-    if(!res.ok) throw new Error('Fetch error: ' + res.status);
-    const text = await res.text();
-    all = parseCSV(text);
-    // sort by nama
-    all.sort((a,b)=> a.nama.localeCompare(b.nama));
+    const res=await fetch(CSV_URL);
+    if(!res.ok) throw new Error('Fetch error: '+res.status);
+    const text=await res.text();
+    all=parseCSV(text);
+    all.sort((a,b)=>a.nama.localeCompare(b.nama));
     render(all);
   }catch(err){
-    document.getElementById('results').innerHTML = `<div class="empty">Gagal mengambil data: ${escapeHtml(err.message)}</div>`;
+    document.getElementById('results').innerHTML=`<div class="empty">Gagal mengambil data: ${escapeHtml(err.message)}</div>`;
     console.error(err);
   }
 }
 
-/* Search & filters */
-const qInput = document.getElementById('q');
-qInput.addEventListener('input', () => {
-  const q = qInput.value.trim().toLowerCase();
-  if(!q) return render(all);
-  const filtered = all.filter(i => i.nama.toLowerCase().includes(q) || (i.ukuran && i.ukuran.toLowerCase().includes(q)));
-  render(filtered, q);
-});
-document.getElementById('showAll').addEventListener('click', ()=> { qInput.value=''; render(all); });
-document.getElementById('showTheory').addEventListener('click', ()=> {
-  const filtered = all.filter(i => /teori|teoretik|uraian|essay|pilihan/i.test(i.nama));
-  render(filtered);
-});
-document.getElementById('showPractice').addEventListener('click', ()=> {
-  const filtered = all.filter(i => /praktik|praktek|lab|laporan|proyek/i.test(i.nama));
-  render(filtered);
+document.getElementById('q').addEventListener('input',()=>{
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  render(all.filter(i=>i.nama.toLowerCase().includes(q)),q);
 });
 
-/* Kick off */
 load();
 </script>
 </body>
