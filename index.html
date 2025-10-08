@@ -7,46 +7,59 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fff8f6; --card:#ffffff; 
-      --accent:#ee4d2d; --accent-dark:#d74427;
-      --muted:#6b7280; --text:#1f2937; 
-      --highlight:#fff0e6;
+      --shopee-orange: #ee4d2d;
+      --shopee-orange-dark: #d7391c;
+      --text-dark: #212121;
+      --text-muted: #757575;
+      --bg-light: #f5f5f5;
+      --white: #ffffff;
     }
     *{box-sizing:border-box;}
     body{
-      margin:0; font-family:"Open Sans",sans-serif; background:var(--bg); color:var(--text);
+      margin:0; font-family:"Open Sans",sans-serif; background:var(--bg-light); color:var(--text-dark);
     }
 
+    /* HEADER ala Shopee */
     header{
-      background:#fff; padding:12px 18px;
-      box-shadow:0 1px 6px rgba(0,0,0,0.05);
-      position:sticky; top:0; z-index:30;
-      display:flex; align-items:center; justify-content:center; gap:12px;
+      background:var(--white);
+      box-shadow:0 1px 4px rgba(0,0,0,0.08);
+      padding:10px 20px;
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .header-container{
+      width:100%; max-width:1200px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
     }
     .logo-text{
-      color:var(--accent); font-weight:800; font-size:22px; letter-spacing:.6px;
-      cursor:pointer; text-transform:uppercase;
+      color:var(--shopee-orange); font-weight:800; font-size:22px; cursor:pointer;
+      text-transform:uppercase; letter-spacing:0.5px;
     }
 
+    /* SEARCH BAR ala Shopee */
     form.search {
-      display:flex; align-items:center; gap:8px;
-      width:100%; max-width:760px;
-      border-radius:999px; padding:6px; background:#fff;
-      border:2px solid var(--accent);
-      box-shadow:0 4px 12px rgba(238,77,45,0.15);
+      display:flex; align-items:center;
+      flex:1;
+      max-width:680px;
+      border:1.5px solid var(--shopee-orange);
+      border-radius:6px;
+      background:var(--white);
       overflow:hidden;
     }
-    .search .prefix{ padding:8px 12px; color:var(--muted); font-size:18px; }
     .search input{
-      flex:1; border:0; outline:none; padding:10px 12px; font-size:15px; background:transparent;
+      flex:1; border:0; outline:none;
+      padding:10px 12px; font-size:14.5px;
     }
     .search button{
-      background:var(--accent); color:#fff; border:0; padding:8px 18px; border-radius:999px;
-      cursor:pointer; font-weight:600; transition:background .18s;
+      background:var(--shopee-orange); color:var(--white);
+      border:0; padding:10px 20px; font-weight:600;
+      cursor:pointer; transition:background .2s;
     }
-    .search button:hover{ background:var(--accent-dark); }
+    .search button:hover{ background:var(--shopee-orange-dark); }
 
-    main{ max-width:1300px; margin:20px auto; padding:0 18px 48px; }
+    /* MAIN */
+    main{ max-width:1200px; margin:24px auto; padding:0 16px 50px; }
     .results{
       display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
     }
@@ -54,39 +67,63 @@
     @media(max-width:800px){ .results{ grid-template-columns:repeat(2,1fr);} }
     @media(max-width:500px){ .results{ grid-template-columns:1fr;} }
 
+    /* CARD ala Shopee */
     .card{
-      background:var(--card); border-radius:14px; padding:16px;
-      text-align:center; box-shadow:0 6px 16px rgba(0,0,0,0.06);
-      transition:transform .22s ease, box-shadow .22s ease;
-      display:flex; flex-direction:column; align-items:center; gap:10px;
-      cursor:pointer; min-height:180px;
+      background:var(--white);
+      border-radius:6px;
+      overflow:hidden;
+      box-shadow:0 1px 4px rgba(0,0,0,0.08);
+      transition:transform .18s ease, box-shadow .18s ease;
+      cursor:pointer; display:flex; flex-direction:column; align-items:center;
     }
-    .card:hover{ transform:translateY(-6px); box-shadow:0 12px 26px rgba(238,77,45,0.25); }
-    .card:active{ transform:scale(.97); }
+    .card:hover{ transform:translateY(-4px); box-shadow:0 4px 12px rgba(0,0,0,0.12); }
 
-    .icon{ font-size:42px; }
-    .name{ font-weight:700; font-size:15px; color:var(--text); text-align:center; word-break:break-word; }
-    .jenis{ font-size:13px; color:var(--muted); margin-top:-4px; }
+    .icon{
+      font-size:46px; margin-top:22px; color:var(--shopee-orange);
+    }
+    .card-content{
+      padding:12px 14px; text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center;
+    }
+    .name{
+      font-weight:600; font-size:14px; color:var(--text-dark);
+      margin-bottom:4px; word-break:break-word;
+    }
+    .jenis{
+      font-size:13px; color:var(--text-muted);
+    }
     .open-btn{
-      background:var(--accent); color:#fff; padding:8px 14px; border-radius:999px;
-      text-decoration:none; font-weight:600; margin-top:8px;
+      background:var(--shopee-orange); color:#fff;
+      padding:7px 14px; border-radius:4px;
+      font-size:13px; font-weight:600;
+      text-decoration:none; display:inline-block;
+      margin:10px 0 14px;
       transition:background .2s;
     }
-    .open-btn:hover{ background:var(--accent-dark); }
-    .empty{ text-align:center; color:var(--muted); padding:60px 0; font-size:15px; }
-    mark.hi{ background:var(--highlight); padding:0 .14em; border-radius:4px; }
+    .open-btn:hover{ background:var(--shopee-orange-dark); }
 
-    footer{ text-align:center; color:var(--muted); margin-top:26px; font-size:13px; }
+    .empty{
+      text-align:center; color:var(--text-muted);
+      padding:60px 0; font-size:15px;
+    }
+    mark.hi{
+      background:#ffebd8; padding:0 .14em; border-radius:2px;
+    }
+
+    footer{
+      text-align:center; color:var(--text-muted);
+      margin-top:30px; font-size:13px;
+    }
   </style>
 </head>
 <body>
 <header>
-  <div class="logo-text">KOMPAS</div>
-  <form class="search" onsubmit="event.preventDefault(); doSearch();">
-    <div class="prefix">🔍</div>
-    <input id="q" type="search" placeholder="Cari dokumen, jenis, atau nama file…" aria-label="Cari">
-    <button type="submit">Cari</button>
-  </form>
+  <div class="header-container">
+    <div class="logo-text">KOMPAS</div>
+    <form class="search" onsubmit="event.preventDefault(); doSearch();">
+      <input id="q" type="search" placeholder="Cari produk, dokumen, atau nama file…" aria-label="Cari">
+      <button type="submit">🔍</button>
+    </form>
+  </div>
 </header>
 
 <main>
@@ -144,14 +181,14 @@ function render(list, q=""){
     card.className = "card";
     card.innerHTML = `
       <div class="icon">${item.ikon}</div>
-      <div class="name">${highlight(item.nama, q)}</div>
-      <div class="jenis">${highlight(item.jenis, q)}</div>
-      <a class="open-btn" href="${item.link}" target="_blank">Buka</a>
+      <div class="card-content">
+        <div class="name">${highlight(item.nama, q)}</div>
+        <div class="jenis">${highlight(item.jenis, q)}</div>
+      </div>
+      <a class="open-btn" href="${item.link}" target="_blank">Lihat</a>
     `;
     card.addEventListener("click", e=>{
       if(e.target.tagName === "A") return;
-      card.style.transform = "scale(1.05)";
-      setTimeout(()=>card.style.transform = "", 200);
       window.open(item.link, "_blank");
     });
     results.appendChild(card);
@@ -190,5 +227,3 @@ load();
 </script>
 </body>
 </html>
-
-
